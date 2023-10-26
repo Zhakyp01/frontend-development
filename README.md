@@ -51,7 +51,7 @@ Copies all the configuration files and the transitive dependencies (webpack, Bab
 
 ### Live Demo
 
-You can view a live demo here as a [Github Page](link) or on [Firebase](https://cipher-72c2a.firebaseapp.com/).
+You can view a live demo here as a [Github Page](link) or on [Firebase]().
 
 ### Usage
 
