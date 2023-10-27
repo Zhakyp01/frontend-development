@@ -14,9 +14,10 @@ jobs:
           ref: refs/heads/master
           fetch-depth: 1
 
-      - uses: actions/setup-node@v1
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
         with:
-          node-version: '13.x'
+          node-version: 14
       - uses: actions/cache@v1
         with:
           path: ./
@@ -26,11 +27,13 @@ jobs:
 
       - name: Build
         run: npm run build
-      - uses: GoogleCloudPlatform/github-actions/setup-gcloud@v1
+      - id: 'auth'
+        uses: 'google-github-actions/auth@v1'
         with:
-          version: '>= 363.0.0'
-          service_account_email: ${{ secrets.GCP_SA_EMAIL }}
-          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
+
+      - name: 'Set up Cloud SDK'
+        uses: 'google-github-actions/setup-gcloud@v1'
       - run: gsutil -m rsync -d -c -r public gs://my-gcs-react-bucket
       - run: gsutil -m setmeta -h "Cache-Control:public, max-age=3600" gs://my-gcs-react-bucket/**/*.html
       - run: gsutil -m setmeta -h "Cache-Control:public, max-age=31536000" gs://my-gcs-react-bucket/js/*.js
