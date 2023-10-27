@@ -22,9 +22,9 @@ jobs:
 
       - name: Build
         run: npm run build
-      - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+      - uses: GoogleCloudPlatform/github-actions/setup-gcloud@v1
         with:
-          version: '276.0.0'
+          version: '>= 363.0.0'
           service_account_email: ${{ secrets.GCP_SA_EMAIL }}
           service_account_key: ${{ secrets.GCP_SA_KEY }}
       - run: gsutil -m rsync -d -c -r public gs://my-gcs-react-bucket
