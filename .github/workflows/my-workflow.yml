@@ -14,26 +14,30 @@ jobs:
           ref: refs/heads/master
           fetch-depth: 1
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+      - uses: actions/cache@v1
+        with:
+          path: ./
+          key: ${{ runner.os }}-js-${{ hashFiles('./package-lock.json') }}
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build
       - id: 'auth'
         uses: 'google-github-actions/auth@v1'
         with:
           credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
-
-
-      - name: copy file to server
-        uses: appleboy/scp-action@v0.1.4
+      - name: List files and folders in the "build" directory
+        run: |
+          find build -type f -o -type d
+        id: list_files_and_folders
+      
+      - name: Upload to Google Cloud Storage
+        uses: google-github-actions/upload-cloud-storage@v1
         with:
-          host: '34.71.192.0'
-          username: 'user'
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: '22'
-          source: frontend-development/*
-          target: /home/user
-
-      - id: 'docker'
-        uses: 'google-github-actions/ssh-compute@v0'
-        with:
-          instance_name: 'instance-1'
-          zone: 'us-central1-a'
-          ssh_private_key: '${{ secrets.SSH_PRIVATE_KEY }}'
-          command: 'cd /home/user/frontend-development && docker build -t react-app . && docker run -d -p 80:80 react-app'          
+          path: 'build'
+          destination: frontend-react-bucket
