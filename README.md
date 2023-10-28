@@ -1,9 +1,8 @@
 # AIU HiddenKey
 
-A react progressive web app written in typescript to encrypt/decrypt files against password in the browser.\
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a React-based progressive web application, developed in TypeScript, designed to perform file encryption and decryption using a password within the browser. The project was initiated using [Create React App](https://github.com/facebook/create-react-app).
 
-![Cipher preview](preview.png?raw=true "AIU HiddenKey")
+![AIU HiddenKey preview](preview.png?raw=true "AIU HiddenKey")
 
 ## CI/CD and Cloud Deployment
 
