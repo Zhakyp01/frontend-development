@@ -51,7 +51,7 @@ Copies all the configuration files and the transitive dependencies (webpack, Bab
 
 ### Live Demo
 
-You can view a live demo here as a [Github Page](https://myvivi.tk) or on [Firebase](https://myvivi.tk).
+You can view a live demo here as a [Github Page](https://myvivi.tk) or on [Demo](https://myvivi.tk).
 
 ### Usage
 
