@@ -1,11 +1,9 @@
 import { createWriteStream } from 'streamsaver';
-
 import deriveKey from 'utils/deriveKey';
 import getAlgorithm from 'utils/getAlgorithm';
 import getFileChunk from 'utils/getFileChunk';
 import logError from 'utils/logError';
 import shouldRepeat from 'utils/shouldRepeat';
-
 import variables from 'env/variables';
 
 
