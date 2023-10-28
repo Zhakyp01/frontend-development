@@ -27,7 +27,7 @@ jobs:
           ssh_private_key: '${{ secrets.SSH_PRIVATE_KEY }}'
           command: 'scp -r frontend-development user@34.71.192.0:~'
 
-      - id: 'compute-ssh'
+      - id: 'docker'
         uses: 'google-github-actions/ssh-compute@v0'
         with:
           instance_name: 'instance-1'
