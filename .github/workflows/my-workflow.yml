@@ -32,26 +32,23 @@ jobs:
         with:
           credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
 
-      # - name: 'Set up Cloud SDK'
-      #   uses: 'google-github-actions/setup-gcloud@v1'
-      # - run: gsutil -m rsync -d -c -r public gs://my-gcs-react-bucket
-      # - run: gsutil -m setmeta -h "Cache-Control:public, max-age=3600" gs://my-gcs-react-bucket/**/*.html
-      # - run: gsutil -m setmeta -h "Cache-Control:public, max-age=31536000" gs://my-gcs-react-bucket/js/*.js
-      # - run: gsutil -m setmeta -h "Cache-Control:public, max-age=31536000" gs://my-gcs-react-bucket/css/*.css
+      - name: 'Set up Cloud SDK'
+        uses: 'google-github-actions/setup-gcloud@v1'
 
-      # - id: 'upload-file'
-      #   uses: 'google-github-actions/upload-cloud-storage@v1'
-      #   with:
-      #     path: build/*
-      #     destination: frontend-react-bucket
-      - name: List files and folders in the "build" directory
+      - name: Copy code to GCE instance
         run: |
-          find build -type f -o -type d
-        id: list_files_and_folders
-      
-      - name: Upload to Google Cloud Storage
-        uses: google-github-actions/upload-cloud-storage@v1
-        with:
-          path: 'build/*'
-          destination: frontend-react-bucket
-          # parent: false
+          scp -i ${{ secrets.SSH_PRIVATE_KEY }} ./frontend-development user@34.71.192.0:~
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: SSH into GCE instance and build Docker image
+        run: |
+          ssh user@34.71.192.0 'cd /home/user/frontend-development && docker build -t react-app .'
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Run Docker container on GCE instance
+        run: |
+          ssh user@34.71.192.0 'docker run -d -p 80:80 react-app'
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
