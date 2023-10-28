@@ -14,23 +14,23 @@ jobs:
           ref: refs/heads/master
           fetch-depth: 1
 
-      - name: 'Set up Cloud SDK'
-        uses: 'google-github-actions/setup-gcloud@v1'
+      - id: 'auth'
+        uses: 'google-github-actions/auth@v1'
+        with:
+          credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
+  
+      - id: 'compute-ssh'
+        uses: 'google-github-actions/ssh-compute@v0'
+        with:
+          instance_name: 'instance-1'
+          zone: 'us-central1-a'
+          ssh_private_key: '${{ secrets.SSH_PRIVATE_KEY }}'
+          command: 'scp -r frontend-development user@34.71.192.0:~'
 
-      - name: Copy code to GCE instance
-        run: |
-          scp -i $SSH_PRIVATE_KEY frontend-development user@34.71.192.0:~
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-
-      - name: SSH into GCE instance and build Docker image
-        run: |
-          ssh user@34.71.192.0 'cd /home/user/frontend-development && docker build -t react-app .'
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-
-      - name: Run Docker container on GCE instance
-        run: |
-          ssh user@34.71.192.0 'docker run -d -p 80:80 react-app'
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      - id: 'compute-ssh'
+        uses: 'google-github-actions/ssh-compute@v0'
+        with:
+          instance_name: 'instance-1'
+          zone: 'us-central1-a'
+          ssh_private_key: '${{ secrets.SSH_PRIVATE_KEY }}'
+          command: 'cd /home/user/frontend-development && docker build -t react-app . && docker run -d -p 80:80 react-app'          
