@@ -37,7 +37,7 @@ const Cipher = () => {
     return (
         <>
             <img src={ logo } className='logo' alt="logo" />
-            <h1> AIU Cipher </h1>
+            <h1> AIU HiddenKey </h1>
 
             <div className="division"><hr /></div>
             <br /><br /><br />
