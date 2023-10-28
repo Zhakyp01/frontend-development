@@ -39,8 +39,14 @@ jobs:
       # - run: gsutil -m setmeta -h "Cache-Control:public, max-age=31536000" gs://my-gcs-react-bucket/js/*.js
       # - run: gsutil -m setmeta -h "Cache-Control:public, max-age=31536000" gs://my-gcs-react-bucket/css/*.css
 
-      - id: 'upload-file'
-        uses: 'google-github-actions/upload-cloud-storage@v1'
+      - name: List files and folders in the "build" directory
+        run: |
+          find build -type f -o -type d
+        id: list_files_and_folders
+      
+      - name: Upload to Google Cloud Storage
+        uses: google-github-actions/upload-cloud-storage@v2
         with:
-          path: build/*
-          destination: frontend-react-bucket
+          credentials: ${{ secrets.GCS_SERVICE_ACCOUNT_KEY }}
+          src: ${{ steps.list_files_and_folders.outputs.stdout }}
+          bucket: frontend-react-bucket
