@@ -52,6 +52,5 @@ jobs:
       - name: Upload to Google Cloud Storage
         uses: google-github-actions/upload-cloud-storage@v1
         with:
-          credentials: ${{ secrets.GCP_CREDENTIALS }}
           path: ${{ steps.list_files_and_folders.outputs.stdout }}
           destination: frontend-react-bucket
