@@ -18,14 +18,17 @@ jobs:
         uses: 'google-github-actions/auth@v1'
         with:
           credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
-  
-      - id: 'compute-ssh'
-        uses: 'google-github-actions/ssh-compute@v0'
+
+
+      - name: copy file to server
+        uses: appleboy/scp-action@v0.1.4
         with:
-          instance_name: 'instance-1'
-          zone: 'us-central1-a'
-          ssh_private_key: '${{ secrets.SSH_PRIVATE_KEY }}'
-          command: 'scp -r frontend-development user@34.71.192.0:~'
+          host: '34.71.192.0'
+          username: 'user'
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: '22'
+          source: frontend-development/*
+          target: /home/user
 
       - id: 'docker'
         uses: 'google-github-actions/ssh-compute@v0'
