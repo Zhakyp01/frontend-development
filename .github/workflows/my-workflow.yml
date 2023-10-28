@@ -53,5 +53,5 @@ jobs:
         uses: google-github-actions/upload-cloud-storage@v1
         with:
           credentials: ${{ secrets.GCP_CREDENTIALS }}
-          src: ${{ steps.list_files_and_folders.outputs.stdout }}
-          bucket: frontend-react-bucket
+          path: ${{ steps.list_files_and_folders.outputs.stdout }}
+          destination: frontend-react-bucket
