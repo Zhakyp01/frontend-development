@@ -1,9 +1,17 @@
-# Cipher
+# AIU HiddenKey
 
 A react progressive web app written in typescript to encrypt/decrypt files against password in the browser.\
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ![Cipher preview](preview.png?raw=true "Cipher")
+
+## CI/CD and Cloud Deployment
+
+- GitHub Actions: I used GitHub Actions to set up automated workflows that trigger when changes are pushed to the master branch. These workflows include building and testing the application.
+
+- Version Updates: When a change is pushed to the master branch, the pipeline automatically updates the versions in the cloud environment. This guarantees that the latest version of the application is always available to users.
+
+- Google Cloud Services: I have leveraged Google Cloud Services to host my application. Google Cloud provides various tools and services for cloud computing, including hosting web applications.
 
 ## Installation
 
