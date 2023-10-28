@@ -19,7 +19,7 @@ jobs:
 
       - name: Copy code to GCE instance
         run: |
-          scp -r frontend-development user@34.71.192.0:~
+          scp -i $SSH_PRIVATE_KEY frontend-development user@34.71.192.0:~
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
 
