@@ -85,7 +85,7 @@ const decryptFile = async (file: File, passkey: string) => {
                 decryptChunkNSave(writer, key, algorithm, file, start, end);
             };
 
-        } else logError('Key generation failed!');
+        } else logError('Key generation failed!!');
 
     } catch ({ message }) { logError(message as string); };
 
