@@ -1,16 +1,12 @@
 import React, { useState } from 'react';
-
 import logo from 'logo.png';
-
 import encryptFile from 'helpers/encryptFile';
 import decryptFile from 'helpers/decryptFile';
-
 
 const Cipher = () => {
     const [file, setFile] = useState<"" | File>('');
     const [filename, setFilename] = useState('Choose A File');
     const [passkey, setPasskey] = useState('');
-
     const onFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if(event?.target?.files![0]) {
             setFile(event.target.files![0]);
@@ -19,7 +15,6 @@ const Cipher = () => {
     };
 
     const onKeyChange = (event: React.ChangeEvent<HTMLInputElement>) => { setPasskey(event.target.value); };
-
     const clickFileInput = (event: React.KeyboardEvent<HTMLLabelElement>) => {
         if(event.key === ' ' || event.key === 'Enter') document.getElementById('file')?.click();
     };
@@ -82,7 +77,6 @@ const Cipher = () => {
             </div>
         </>
     );
-
 };
 
 
