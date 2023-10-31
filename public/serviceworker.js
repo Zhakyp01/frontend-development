@@ -12,7 +12,6 @@ const urlsToCache = [
 ];
 
 
-// Install serviceworker
 self.addEventListener('install', event => {
     event.waitUntil(caches.open(CACHE_NAME)
         .then(cache => {
@@ -22,11 +21,9 @@ self.addEventListener('install', event => {
     console.log('Worker installed! 👍');
 });
 
-// On serviceworker activation
 self.addEventListener('activate', event => {
     const cacheWhitelist = [];
     cacheWhitelist.push(CACHE_NAME);
-
     event.waitUntil(
         caches.keys().then(cacheNames => {
             cacheNames.forEach(cacheName => {
@@ -37,23 +34,17 @@ self.addEventListener('activate', event => {
     console.log('Worker activated! 👍');
 });
 
-// Handle fetch events
 self.addEventListener('fetch', event => {
     event.respondWith(async function() {
         try {
-            // Get via fetch
             const res = await fetch(event.request);
             const cache = await caches.open(CACHE_NAME);
             cache.put(event.request.url, res.clone());
-
             return res;
         } catch({ message }) {
             console.log({ message });
-
-            // Get via cache
             const cache = await caches.open(CACHE_NAME);
             const res = await cache.match(event.request.url);
-
             return res;
         };
     }());
