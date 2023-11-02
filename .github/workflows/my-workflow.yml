@@ -42,3 +42,4 @@ jobs:
         with:
           path: 'build'
           destination: frontend-react-buckett
+          parent: false
