@@ -2,9 +2,9 @@
 name: Website - Production
 on:
   workflow_dispatch:
-  # push:
-  #   branches:
-  #     - master
+  push:
+    branches:
+      - master
 jobs:
   build:
     name: Build & Deploy
@@ -41,4 +41,4 @@ jobs:
         uses: google-github-actions/upload-cloud-storage@v1
         with:
           path: 'build'
-          destination: frontend-react-bucket
+          destination: frontend-react-buckett
