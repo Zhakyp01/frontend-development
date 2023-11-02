@@ -3,6 +3,7 @@ import logo from 'logo.png';
 import encryptFile from 'helpers/encryptFile';
 import decryptFile from 'helpers/decryptFile';
 
+
 const Cipher = () => {
     const [file, setFile] = useState<"" | File>('');
     const [filename, setFilename] = useState('Choose A File');

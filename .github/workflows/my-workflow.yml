@@ -1,7 +1,7 @@
 # .github/workflows/my-workflow.yml
 name: Website - Production
 on:
-  workflow_dispatch:
+  # workflow_dispatch:
   push:
     branches:
       - master

@@ -93,7 +93,7 @@ input[type=text]:focus {
     outline: none;
 }
 
-input[type=button] {  
+/* input[type=button].other-button {  
     width: 30%;
     margin: 10%;
     padding: 1%;
@@ -104,7 +104,28 @@ input[type=button] {
     cursor: pointer;
     box-shadow: 2px 4px grey;
     margin-bottom: 30px;
-}
+} */
+
+input[type=button]{
+    width: 30%;
+    margin: 10%;
+    padding: 1%;
+    border-radius: 36px;
+    border: none;
+    background: #fff;
+    color: #000000;
+    cursor: pointer;
+    box-shadow: 2px 4px grey;
+    margin-bottom: 30px;
+    transition: background-color 0.3s; /* Add a transition for color change */
+  }
+  
+  input[type=button]:hover {
+    background-color: #0250a4; /* Change the background color on hover */
+    color: #fff; /* Change the text color on hover */
+  }
+  
+
 
 #file-label { 
     padding: 2%;
